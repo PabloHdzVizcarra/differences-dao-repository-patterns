@@ -54,17 +54,7 @@ public class MySQLDatabase<T> implements Database<T> {
             statement.executeQuery("SELECT * FROM user_patterns");
 
             try (ResultSet resultSet = statement.getResultSet()) {
-                List<UserDto> userList = new ArrayList<>();
-                UserDto user = null;
-                while (resultSet.next()) {
-                    long userId = resultSet.getLong(1);
-                    String userUsername = resultSet.getString(2);
-                    String userName = resultSet.getString(3);
-                    String userEmail = resultSet.getString(4);
-
-                    user = new UserDto(userId, userUsername, userName, userEmail);
-                    userList.add(user);
-                }
+                List<UserDto> userList = mapToUserList(resultSet);
 
                 return (List<T>) userList;
             }
@@ -73,5 +63,21 @@ public class MySQLDatabase<T> implements Database<T> {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    private List<UserDto> mapToUserList(ResultSet resultSet) throws SQLException {
+        UserDto user;
+        List<UserDto> userList = new ArrayList<>();
+        while (resultSet.next()) {
+            long userId = resultSet.getLong(1);
+            String userUsername = resultSet.getString(2);
+            String userName = resultSet.getString(3);
+            String userEmail = resultSet.getString(4);
+
+            user = new UserDto(userId, userUsername, userName, userEmail);
+            userList.add(user);
+        }
+
+        return userList;
     }
 }
