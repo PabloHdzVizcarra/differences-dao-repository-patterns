@@ -9,6 +9,12 @@ public class UserRequest {
     public UserRequest() {
     }
 
+    public UserRequest(String username, String name, String email) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+    }
+
     public String getUsername() {
         return username;
     }
