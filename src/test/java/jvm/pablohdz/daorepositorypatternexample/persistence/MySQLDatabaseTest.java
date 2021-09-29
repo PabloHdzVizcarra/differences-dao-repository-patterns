@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,5 +36,15 @@ class MySQLDatabaseTest {
 
         System.out.println(list);
         assertTrue(list.size() > 1);
+    }
+
+    @Test
+    void testThatSaveUser() {
+        UserRequest request = new UserRequest(
+                "doctor strange", "Stephen Strange", "drstrench@marvel.com");
+
+        long id = underTest.save(request);
+
+        assertTrue(id > 0);
     }
 }

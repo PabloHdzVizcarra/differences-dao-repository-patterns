@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 
 @Component
 public class MySQLDatabase<T> implements Database<T> {
@@ -63,6 +65,41 @@ public class MySQLDatabase<T> implements Database<T> {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public long save(UserRequest data) {
+        long id = 0;
+        try (Connection conn = DriverManager.getConnection(URL_DATABASE, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "INSERT INTO user_patterns" +
+                             "(user_username, user_name, user_email) VALUES (?, ?, ?)",
+                     Statement.RETURN_GENERATED_KEYS
+             )) {
+
+            pstmt.setString(1, data.getUsername());
+            pstmt.setString(2, data.getName());
+            pstmt.setString(3, data.getEmail());
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        id = rs.getLong(1);
+                    }
+                } catch (SQLException exception) {
+                    System.out.println(exception.getMessage());
+                }
+            }
+
+            return id;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
     }
 
     private List<UserDto> mapToUserList(ResultSet resultSet) throws SQLException {
