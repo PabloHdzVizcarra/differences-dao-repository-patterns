@@ -8,6 +8,7 @@ import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dao.UserDao;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,5 +25,12 @@ public class UserServiceImpl implements UserService {
         List<UserDto> list = userDao.fetchAll();
         logger.info("Fetch " + list.size() + " users from the database");
         return list;
+    }
+
+    @Override
+    public long save(UserRequest userRequest) {
+        long id = userDao.create(userRequest);
+        logger.info("Create new user with id: " + id);
+        return id;
     }
 }
