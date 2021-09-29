@@ -6,6 +6,7 @@ import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.domain.User;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
 import jvm.pablohdz.daorepositorypatternexample.persistence.OthersOperationsUser;
 
@@ -17,10 +18,9 @@ public class UserDaoImpl implements UserDao {
         this.persistence = persistence;
     }
 
-
     @Override
-    public void create(User user) {
-        persistence.fetchOne();
+    public long create(UserRequest user) {
+        return persistence.save(user);
     }
 
     @Override

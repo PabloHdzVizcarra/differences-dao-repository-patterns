@@ -4,9 +4,10 @@ import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.domain.User;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 
 public interface UserDao {
-    void create(User user);
+    long create(UserRequest user);
 
     User read(Long id);
 
