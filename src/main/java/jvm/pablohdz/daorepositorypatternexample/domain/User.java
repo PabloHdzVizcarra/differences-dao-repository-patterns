@@ -25,6 +25,9 @@ public class User {
     @Column(name = "user_email")
     private String email;
 
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
