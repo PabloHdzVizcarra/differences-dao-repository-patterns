@@ -3,6 +3,8 @@ package jvm.pablohdz.daorepositorypatternexample.persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +24,16 @@ class MySQLDatabaseTest {
         UserDto user = underTest.fetchOne();
 
         assertNotNull(user);
-        System.out.println(user);
+        assertNotNull(user.getEmail());
+        assertNotNull(user.getUsername());
+        assertNotNull(user.getName());
+    }
+
+    @Test
+    void testThatFetchAllUsers() {
+        List<UserDto> list = underTest.getAll();
+
+        System.out.println(list);
+        assertTrue(list.size() > 1);
     }
 }
