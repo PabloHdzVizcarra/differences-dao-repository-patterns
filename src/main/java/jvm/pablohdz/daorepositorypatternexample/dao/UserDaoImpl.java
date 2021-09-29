@@ -10,7 +10,7 @@ import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
 import jvm.pablohdz.daorepositorypatternexample.persistence.OthersOperationsUser;
 
 @Repository
-public class UserDaoImpl implements UserDao, OthersOperationsUser {
+public class UserDaoImpl implements UserDao {
     private final Database<UserDto> persistence;
 
     public UserDaoImpl(Database<UserDto> persistence) {

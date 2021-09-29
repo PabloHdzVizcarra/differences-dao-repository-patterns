@@ -1,5 +1,9 @@
 package jvm.pablohdz.daorepositorypatternexample.service;
 
+import java.util.List;
+
+import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+
 public interface UserService {
-    void fetchUsers();
+    List<UserDto> fetchUsers();
 }
