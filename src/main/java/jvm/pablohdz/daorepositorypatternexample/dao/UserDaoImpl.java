@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User user) {
-        persistence.persist(user);
+        persistence.fetchOne(user);
     }
 
     @Override
