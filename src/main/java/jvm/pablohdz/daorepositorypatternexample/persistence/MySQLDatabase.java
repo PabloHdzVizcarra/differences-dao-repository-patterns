@@ -70,10 +70,11 @@ public class MySQLDatabase<T> implements Database<T> {
     @Override
     public long save(UserRequest data) {
         long id = 0;
+        String query = "INSERT INTO user_patterns" +
+                "(user_username, user_name, user_email) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL_DATABASE, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(
-                     "INSERT INTO user_patterns" +
-                             "(user_username, user_name, user_email) VALUES (?, ?, ?)",
+                     query,
                      Statement.RETURN_GENERATED_KEYS
              )) {
 
@@ -96,7 +97,7 @@ public class MySQLDatabase<T> implements Database<T> {
             return id;
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
 
         return 0;
