@@ -1,5 +1,7 @@
 package jvm.pablohdz.daorepositorypatternexample.persistence;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
 
+@Component
 public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
     public static final String URL = "jdbc:mysql://localhost:3306/example";
     public static final String USER = "root";

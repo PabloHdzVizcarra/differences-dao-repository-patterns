@@ -6,20 +6,20 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
-import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
+import jvm.pablohdz.daorepositorypatternexample.persistence.TweetDatabase;
 
 @Repository
 public class TweetDaoImpl implements TweetDao {
-    private final Database<TweetDao> database;
+    private final TweetDatabase<TweetDto> database;
 
     @Autowired
-    public TweetDaoImpl(Database<TweetDao> database) {
+    public TweetDaoImpl(TweetDatabase<TweetDto> database) {
         this.database = database;
     }
 
 
     @Override
     public List<TweetDto> fetchTweetsByEmail(String email) {
-        return null;
+        return database.findByEmail(email);
     }
 }
