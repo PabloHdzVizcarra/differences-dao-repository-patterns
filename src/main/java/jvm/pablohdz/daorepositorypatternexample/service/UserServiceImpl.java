@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long save(UserRequest userRequest) {
+        userRequest.validateFields();
         long id = userDao.create(userRequest);
         logger.info("Create new user with id: " + id);
         return id;
