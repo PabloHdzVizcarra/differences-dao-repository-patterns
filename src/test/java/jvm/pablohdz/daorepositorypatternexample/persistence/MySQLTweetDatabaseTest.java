@@ -22,6 +22,7 @@ class MySQLTweetDatabaseTest {
 
         List<TweetDto> list = database.findByEmail("spiderman@marvel.com");
 
+        System.out.println(list);
         assertTrue(list.size() > 0);
     }
 }

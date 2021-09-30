@@ -1,5 +1,6 @@
 package jvm.pablohdz.daorepositorypatternexample.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class TweetDto {
@@ -8,13 +9,11 @@ public class TweetDto {
     private Date dateCreated;
     private long id;
 
-    public TweetDto() {
-    }
-
-    public TweetDto(long id, String text, Date dateCreated) {
+    public TweetDto(long id, String text, Date dateCreated, String email) {
         this.id = id;
         this.tweetText = text;
         this.dateCreated = dateCreated;
+        this.email = email;
     }
 
     public String getEmail() {
