@@ -11,11 +11,10 @@ public class TweetDto {
     public TweetDto() {
     }
 
-    public TweetDto(String email, String tweetText, Date dateCreated, long id) {
-        this.email = email;
-        this.tweetText = tweetText;
-        this.dateCreated = dateCreated;
+    public TweetDto(long id, String text, Date dateCreated) {
         this.id = id;
+        this.tweetText = text;
+        this.dateCreated = dateCreated;
     }
 
     public String getEmail() {

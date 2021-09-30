@@ -10,7 +10,7 @@ import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
 
 @Repository
 public class TweetDaoImpl implements TweetDao {
-    private Database<TweetDao> database;
+    private final Database<TweetDao> database;
 
     @Autowired
     public TweetDaoImpl(Database<TweetDao> database) {
