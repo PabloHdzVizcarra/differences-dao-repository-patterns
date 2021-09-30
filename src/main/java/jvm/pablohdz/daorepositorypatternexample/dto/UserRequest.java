@@ -1,7 +1,6 @@
 package jvm.pablohdz.daorepositorypatternexample.dto;
 
 public class UserRequest {
-
     private String username;
     private String name;
     private String email;
@@ -37,6 +36,11 @@ public class UserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void validateFields() {
+        if (this.email.equals("") || this.name.equals("") || this.username.equals(""))
+            throw new RuntimeException("try save empty values, please check data");
     }
 
     @Override
