@@ -6,38 +6,34 @@ public class TweetDto {
     private String email;
     private String tweetText;
     private Date dateCreated;
+    private long id;
 
     public TweetDto() {
     }
 
-    public TweetDto(String email, String tweetText, Date dateCreated) {
+    public TweetDto(String email, String tweetText, Date dateCreated, long id) {
         this.email = email;
         this.tweetText = tweetText;
         this.dateCreated = dateCreated;
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getTweetText() {
         return tweetText;
     }
 
-    public void setTweetText(String tweetText) {
-        this.tweetText = tweetText;
-    }
 
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public long getId() {
+        return id;
     }
 
     @Override
@@ -46,6 +42,7 @@ public class TweetDto {
                 "email='" + email + '\'' +
                 ", tweetText='" + tweetText + '\'' +
                 ", dateCreated=" + dateCreated +
+                ", id=" + id +
                 '}';
     }
 }
