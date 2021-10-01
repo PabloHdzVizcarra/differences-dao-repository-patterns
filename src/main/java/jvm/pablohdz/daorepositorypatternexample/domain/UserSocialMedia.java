@@ -14,6 +14,26 @@ public class UserSocialMedia {
     public UserSocialMedia() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<TweetDto> getTweetList() {
+        return tweetList;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
