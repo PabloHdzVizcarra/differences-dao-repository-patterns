@@ -2,20 +2,28 @@ package jvm.pablohdz.daorepositorypatternexample.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+import jvm.pablohdz.daorepositorypatternexample.domain.UserSocialMedia;
 import jvm.pablohdz.daorepositorypatternexample.dto.EmailRequest;
+import jvm.pablohdz.daorepositorypatternexample.repository.TweetRepository;
 
 @Service
 public class TweetServiceImpl implements TweetService {
     Logger logger = LoggerFactory.getLogger(TweetServiceImpl.class);
+    private TweetRepository tweetRepository;
+
+    @Autowired
+    public TweetServiceImpl(TweetRepository tweetRepository) {
+        this.tweetRepository = tweetRepository;
+    }
 
     @Override
-    public List<?> fetchTweetsByEmail(EmailRequest emailRequest) {
+    public UserSocialMedia fetchTweetsByEmail(EmailRequest emailRequest) {
         logger.info("fetch all tweets from the database with email: " +
                 emailRequest.getEmail());
-        return null;
+
+        return tweetRepository.findByEmail(emailRequest.getEmail());
     }
 }
