@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jvm.pablohdz.daorepositorypatternexample.domain.UserSocialMedia;
-import jvm.pablohdz.daorepositorypatternexample.dto.EmailRequest;
 import jvm.pablohdz.daorepositorypatternexample.repository.TweetRepository;
 
 @Service
@@ -20,10 +19,10 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
-    public UserSocialMedia fetchTweetsByEmail(EmailRequest emailRequest) {
+    public UserSocialMedia fetchTweetsByEmail(String email) {
         logger.info("fetch all tweets from the database with email: " +
-                emailRequest.getEmail());
+                email);
 
-        return tweetRepository.findByEmail(emailRequest.getEmail());
+        return tweetRepository.findByEmail(email);
     }
 }
