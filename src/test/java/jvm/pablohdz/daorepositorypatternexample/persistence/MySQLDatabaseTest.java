@@ -47,4 +47,11 @@ class MySQLDatabaseTest {
 
         assertTrue(id > 0);
     }
+
+    @Test
+    void testThatFindUserByEmail() {
+        UserDto user = underTest.findByEmail("spiderman@marvel.com");
+
+        assertTrue(user.getEmail().equalsIgnoreCase("spiderman@marvel.com"));
+    }
 }

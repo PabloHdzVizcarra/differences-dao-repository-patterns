@@ -18,12 +18,12 @@ import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 public class MySQLDatabase<T> implements Database<T> {
     public static final String USER = "root";
     public static final String PASS = "my-secret-pw";
-    private final String URL_DATABASE = "jdbc:mysql://localhost:3306/example";
+    private final String URL = "jdbc:mysql://localhost:3306/example";
 
     @Override
     public T fetchOne() {
 
-        try (Connection connection = DriverManager.getConnection(URL_DATABASE, USER,
+        try (Connection connection = DriverManager.getConnection(URL, USER,
                 PASS
         )) {
             Statement statement = connection.createStatement();
@@ -51,7 +51,7 @@ public class MySQLDatabase<T> implements Database<T> {
 
     @Override
     public List<T> getAll() {
-        try (Connection connection = DriverManager.getConnection(URL_DATABASE, USER, PASS);
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASS);
              Statement statement = connection.createStatement()) {
             statement.executeQuery("SELECT * FROM user_patterns");
 
@@ -72,7 +72,7 @@ public class MySQLDatabase<T> implements Database<T> {
         long id = 0;
         String query = "INSERT INTO user_patterns" +
                 "(user_username, user_name, user_email) VALUES (?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection(URL_DATABASE, USER, PASS);
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(
                      query,
                      Statement.RETURN_GENERATED_KEYS
@@ -101,6 +101,37 @@ public class MySQLDatabase<T> implements Database<T> {
         }
 
         return 0;
+    }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT * FROM user_patterns WHERE user_email = ?")) {
+
+            pstmt.setString(1, email);
+
+            pstmt.executeQuery();
+
+            try (ResultSet resultSet = pstmt.getResultSet()) {
+                UserDto userDto = null;
+                while (resultSet.next()) {
+                    long id = resultSet.getLong(1);
+                    String username = resultSet.getString(2);
+                    String name = resultSet.getString(3);
+                    String userEmail = resultSet.getString(4);
+
+                    userDto = new UserDto(id, username, name, userEmail);
+                }
+
+                return userDto;
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return null;
     }
 
     private List<UserDto> mapToUserList(ResultSet resultSet) throws SQLException {
