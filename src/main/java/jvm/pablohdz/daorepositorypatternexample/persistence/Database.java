@@ -2,6 +2,7 @@ package jvm.pablohdz.daorepositorypatternexample.persistence;
 
 import java.util.List;
 
+import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 
 public interface Database<T> {
@@ -10,4 +11,6 @@ public interface Database<T> {
     List<T> getAll();
 
     long save(UserRequest data);
+
+    UserDto findByEmail(String email);
 }

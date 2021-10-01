@@ -42,4 +42,9 @@ public class UserDaoImpl implements UserDao {
     public List<UserDto> fetchAll() {
         return persistence.getAll();
     }
+
+    @Override
+    public void findByEmail(String email) {
+        persistence.findByEmail(email);
+    }
 }

@@ -16,4 +16,6 @@ public interface UserDao {
     void delete(String username);
 
     List<UserDto> fetchAll();
+
+    void findByEmail(String email);
 }
