@@ -8,7 +8,6 @@ import jvm.pablohdz.daorepositorypatternexample.domain.User;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserRequest;
 import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
-import jvm.pablohdz.daorepositorypatternexample.persistence.OthersOperationsUser;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -44,7 +43,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void findByEmail(String email) {
-        persistence.findByEmail(email);
+    public UserDto findByEmail(String email) {
+        return persistence.findByEmail(email);
     }
 }

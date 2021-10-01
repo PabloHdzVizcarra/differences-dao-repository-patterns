@@ -17,5 +17,5 @@ public interface UserDao {
 
     List<UserDto> fetchAll();
 
-    void findByEmail(String email);
+    UserDto findByEmail(String email);
 }
