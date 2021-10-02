@@ -31,7 +31,7 @@ class MySQLTweetDatabaseTest {
     void testThatSaveTweetInDatabase() {
         TweetRequest tweetRequest = new TweetRequest(
                 "spiderman@marvel.com",
-                "i need kill to doctor octopus"
+                "the world is amazing, i'm tired"
         );
         long id = database.saveData(tweetRequest);
 

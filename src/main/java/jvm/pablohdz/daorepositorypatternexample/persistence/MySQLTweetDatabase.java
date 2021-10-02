@@ -44,7 +44,10 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
         PreparedStatement preparedStatement = createPreparedStatement(connection, query);
         PreparedStatement pstmt = executeQueryCreateTweet(preparedStatement, tweetRequest);
 
-        return mapToTweet(pstmt);
+        long id = mapToTweet(pstmt);
+        closeConnections(pstmt, preparedStatement, connection);
+
+        return id;
     }
 
     private long mapToTweet(PreparedStatement pstmt) {
@@ -83,6 +86,20 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
             Connection connection,
             PreparedStatement pstmt,
             PreparedStatement pstmtWithData
+    ) {
+        try {
+            connection.close();
+            pstmt.close();
+            pstmtWithData.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnections(
+            PreparedStatement pstmt,
+            PreparedStatement pstmtWithData,
+            Connection connection
     ) {
         try {
             connection.close();
