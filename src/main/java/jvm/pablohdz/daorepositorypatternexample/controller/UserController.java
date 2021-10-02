@@ -2,6 +2,7 @@ package jvm.pablohdz.daorepositorypatternexample.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping
+    @GetMapping
     public ResponseEntity<List<UserDto>> fetchUsers() {
         List<UserDto> listUsers = userService.fetchUsers();
         return ResponseEntity.ok(listUsers);
