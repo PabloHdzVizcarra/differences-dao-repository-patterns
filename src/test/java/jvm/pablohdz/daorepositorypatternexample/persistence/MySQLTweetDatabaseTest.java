@@ -3,12 +3,14 @@ package jvm.pablohdz.daorepositorypatternexample.persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetRequest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MySQLTweetDatabaseTest {
     private MySQLTweetDatabase database;
@@ -31,7 +33,8 @@ class MySQLTweetDatabaseTest {
     void testThatSaveTweetInDatabase() {
         TweetRequest tweetRequest = new TweetRequest(
                 "spiderman@marvel.com",
-                "the world is amazing, i'm tired"
+                "i need more sleep",
+                new Timestamp(new Date().getTime())
         );
         long id = database.saveData(tweetRequest);
 

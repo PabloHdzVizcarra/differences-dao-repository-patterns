@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
     ) {
         try {
             preparedStatement.setString(1, tweetRequest.getTweetText());
-            preparedStatement.setTimestamp(2, Timestamp.from(Instant.now()));
+            preparedStatement.setTimestamp(2, tweetRequest.getTimeCreated());
             preparedStatement.setString(3, tweetRequest.getEmail());
 
             return preparedStatement;
