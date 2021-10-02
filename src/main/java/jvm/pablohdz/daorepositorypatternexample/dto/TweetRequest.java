@@ -20,6 +20,14 @@ public class TweetRequest {
         this.email = email;
     }
 
+    public void setTweetText(String tweetText) {
+        this.tweetText = tweetText;
+    }
+
+    public void setTimeCreated(Timestamp timeCreated) {
+        this.timeCreated = timeCreated;
+    }
+
     public String getEmail() {
         return this.email;
     }

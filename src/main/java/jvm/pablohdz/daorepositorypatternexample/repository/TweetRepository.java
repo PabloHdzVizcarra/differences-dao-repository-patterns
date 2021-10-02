@@ -9,6 +9,7 @@ import jvm.pablohdz.daorepositorypatternexample.dao.TweetDao;
 import jvm.pablohdz.daorepositorypatternexample.dao.UserDao;
 import jvm.pablohdz.daorepositorypatternexample.domain.UserSocialMedia;
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.TweetRequest;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
 
 @Repository
@@ -22,6 +23,7 @@ public class TweetRepository {
         this.userDao = userDao;
     }
 
+    // TODO: 10/1/21 refactor move mapping object
     public UserSocialMedia findByEmail(String email) {
         UserSocialMedia userSocialMedia = new UserSocialMedia();
         UserDto user = userDao.findByEmail(email);
@@ -34,5 +36,9 @@ public class TweetRepository {
         userSocialMedia.setTweetList(listTweets);
 
         return userSocialMedia;
+    }
+
+    public long createTweet(TweetRequest tweetRequest) {
+       return tweetDao.create(tweetRequest);
     }
 }
