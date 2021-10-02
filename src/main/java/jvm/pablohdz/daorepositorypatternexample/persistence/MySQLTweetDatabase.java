@@ -7,11 +7,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
+import jvm.pablohdz.daorepositorypatternexample.dto.TweetRequest;
 
 @Component
 public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
@@ -31,6 +34,49 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
         List<TweetDto> list = getTweets(pstmtWithData);
         closeConnections(connection, pstmt, pstmtWithData);
         return list;
+    }
+
+    @Override
+    public long saveData(TweetRequest tweetRequest) {
+        String query = "INSERT INTO tweet_patterns(tweet_text, tweet_created, tweet_email)" +
+                " VALUES (?, ?, ?);";
+        Connection connection = createConnection();
+        PreparedStatement preparedStatement = createPreparedStatement(connection, query);
+        PreparedStatement pstmt = executeQueryCreateTweet(preparedStatement, tweetRequest);
+
+        return mapToTweet(pstmt);
+    }
+
+    private long mapToTweet(PreparedStatement pstmt) {
+        long id = 0;
+        try {
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet keys = pstmt.getGeneratedKeys();
+                if (keys.next())
+                    id = keys.getLong(1);
+            }
+            return id;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    private PreparedStatement executeQueryCreateTweet(
+            PreparedStatement preparedStatement,
+            TweetRequest tweetRequest
+    ) {
+        try {
+            preparedStatement.setString(1, tweetRequest.getTweetText());
+            preparedStatement.setTimestamp(2, Timestamp.from(Instant.now()));
+            preparedStatement.setString(3, tweetRequest.getEmail());
+
+            return preparedStatement;
+        } catch (SQLException exception) {
+            throw new IllegalArgumentException(exception.getMessage());
+        }
     }
 
     private void closeConnections(
@@ -57,7 +103,7 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
 
     private PreparedStatement createPreparedStatement(Connection connection, String query) {
         try {
-            return connection.prepareStatement(query);
+            return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
