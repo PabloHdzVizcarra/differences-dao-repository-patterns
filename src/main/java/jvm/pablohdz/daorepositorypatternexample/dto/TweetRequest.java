@@ -36,4 +36,8 @@ public class TweetRequest {
                 ", dateCreated=" + dateCreated +
                 '}';
     }
+
+    public String getEmail() {
+        return this.email;
+    }
 }
