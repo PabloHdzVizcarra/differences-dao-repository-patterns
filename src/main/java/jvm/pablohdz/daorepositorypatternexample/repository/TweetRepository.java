@@ -23,11 +23,18 @@ public class TweetRepository {
         this.userDao = userDao;
     }
 
-    // TODO: 10/1/21 refactor move mapping object
     public UserSocialMedia findByEmail(String email) {
-        UserSocialMedia userSocialMedia = new UserSocialMedia();
         UserDto user = userDao.findByEmail(email);
         List<TweetDto> listTweets = tweetDao.fetchTweetsByEmail(email);
+
+        return mapToUserSocialMedia(user, listTweets);
+    }
+
+    private UserSocialMedia mapToUserSocialMedia(
+            UserDto user,
+            List<TweetDto> listTweets
+    ) {
+        UserSocialMedia userSocialMedia = new UserSocialMedia();
 
         userSocialMedia.setId(user.getId());
         userSocialMedia.setName(user.getName());
@@ -39,6 +46,6 @@ public class TweetRepository {
     }
 
     public long createTweet(TweetRequest tweetRequest) {
-       return tweetDao.create(tweetRequest);
+        return tweetDao.create(tweetRequest);
     }
 }
