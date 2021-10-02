@@ -1,13 +1,12 @@
 package jvm.pablohdz.daorepositorypatternexample.dto;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class TweetDto {
-    private String email;
-    private String tweetText;
-    private Date dateCreated;
-    private long id;
+    private final String email;
+    private final String tweetText;
+    private final Date dateCreated;
+    private final long id;
 
     public TweetDto(long id, String text, Date dateCreated, String email) {
         this.id = id;
@@ -20,19 +19,6 @@ public class TweetDto {
         return email;
     }
 
-
-    public String getTweetText() {
-        return tweetText;
-    }
-
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public long getId() {
-        return id;
-    }
 
     @Override
     public String toString() {
