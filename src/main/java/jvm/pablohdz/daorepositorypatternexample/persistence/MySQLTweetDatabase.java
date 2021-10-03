@@ -14,6 +14,7 @@ import java.util.List;
 
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetDto;
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetRequest;
+import jvm.pablohdz.daorepositorypatternexample.exception.TweetDuplicateTextContent;
 
 @Component
 public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
@@ -31,7 +32,7 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
                 executeQueryFindByEmail("spiderman@marvel.com", pstmt);
 
         List<TweetDto> list = getTweets(pstmtWithData);
-        closeConnections(connection, pstmt, pstmtWithData);
+        closeConnections(pstmt, pstmtWithData, connection);
         return list;
     }
 
@@ -61,10 +62,8 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
             return id;
 
         } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
-            e.printStackTrace();
+            throw new TweetDuplicateTextContent(e.getMessage());
         }
-        return id;
     }
 
     private PreparedStatement executeQueryCreateTweet(
@@ -80,21 +79,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
         } catch (SQLException exception) {
             // TODO: 10/1/21 handle exception
             throw new IllegalArgumentException(exception.getMessage());
-        }
-    }
-
-    private void closeConnections(
-            Connection connection,
-            PreparedStatement pstmt,
-            PreparedStatement pstmtWithData
-    ) {
-        try {
-            connection.close();
-            pstmt.close();
-            pstmtWithData.close();
-        } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
-            e.printStackTrace();
         }
     }
 
