@@ -1,5 +1,6 @@
 package jvm.pablohdz.daorepositorypatternexample.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import jvm.pablohdz.daorepositorypatternexample.persistence.Database;
 public class UserDaoImpl implements UserDao {
     private final Database<UserDto> persistence;
 
+    @Autowired
     public UserDaoImpl(Database<UserDto> persistence) {
         this.persistence = persistence;
     }
