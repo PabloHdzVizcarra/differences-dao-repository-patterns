@@ -39,16 +39,6 @@ class MySQLDatabaseTest {
     }
 
     @Test
-    void testThatSaveUser() {
-        UserRequest request = new UserRequest(
-                "doctor strange", "Stephen Strange", "drstrench@marvel.com");
-
-        long id = underTest.save(request);
-
-        assertTrue(id > 0);
-    }
-
-    @Test
     void testThatFindUserByEmail() {
         UserDto user = underTest.findByEmail("spiderman@marvel.com");
 

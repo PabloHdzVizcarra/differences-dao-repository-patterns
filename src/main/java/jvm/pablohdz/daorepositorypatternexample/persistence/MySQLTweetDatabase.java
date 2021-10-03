@@ -77,7 +77,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
 
             return preparedStatement;
         } catch (SQLException exception) {
-            // TODO: 10/1/21 handle exception
             throw new IllegalArgumentException(exception.getMessage());
         }
     }
@@ -92,7 +91,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
             pstmt.close();
             pstmtWithData.close();
         } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
             e.printStackTrace();
         }
     }
@@ -101,7 +99,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -110,7 +107,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
         try {
             return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -121,7 +117,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
             pstmt.executeQuery();
             return pstmt;
         } catch (SQLException e) {
-            // TODO: 10/1/21 handle exception
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -143,7 +138,6 @@ public class MySQLTweetDatabase implements TweetDatabase<TweetDto> {
             return list;
 
         } catch (SQLException exception) {
-            // TODO: 10/1/21 handle exception
             exception.printStackTrace();
         }
 
