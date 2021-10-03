@@ -20,4 +20,16 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 new HttpHeaders(), HttpStatus.NOT_FOUND, webRequest
         );
     }
+
+    @ExceptionHandler(TweetDuplicateTextContent.class)
+    protected ResponseEntity<?> tweetDuplicateContentHandler(
+            TweetDuplicateTextContent ex,
+            WebRequest request
+    ) {
+        return handleExceptionInternal(ex,
+                "You dont can create a tweet, because the text content is duplicated in another " +
+                        "tweet",
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request
+        );
+    }
 }
