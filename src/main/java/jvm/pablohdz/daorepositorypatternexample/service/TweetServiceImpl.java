@@ -12,6 +12,7 @@ import jvm.pablohdz.daorepositorypatternexample.dao.UserDao;
 import jvm.pablohdz.daorepositorypatternexample.domain.UserSocialMedia;
 import jvm.pablohdz.daorepositorypatternexample.dto.TweetRequest;
 import jvm.pablohdz.daorepositorypatternexample.dto.UserDto;
+import jvm.pablohdz.daorepositorypatternexample.exception.UserNotFoundException;
 import jvm.pablohdz.daorepositorypatternexample.repository.TweetRepository;
 
 @Service
@@ -42,9 +43,7 @@ public class TweetServiceImpl implements TweetService {
         UserDto byEmail = userDao.findByEmail(tweetRequest.getEmail());
 
         if (byEmail == null)
-            throw new RuntimeException("The user with email: " +
-                    tweetRequest.getEmail() +
-                    " is not exists, please check the email is correct");
+            throw new UserNotFoundException(tweetRequest.getEmail());
 
         tweetRequest.setTimeCreated(new Timestamp(new Date().getTime()));
 
