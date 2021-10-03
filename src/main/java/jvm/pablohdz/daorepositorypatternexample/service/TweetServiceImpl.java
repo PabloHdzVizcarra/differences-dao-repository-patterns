@@ -40,13 +40,15 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public long createTweet(TweetRequest tweetRequest) {
-        UserDto byEmail = userDao.findByEmail(tweetRequest.getEmail());
-
-        if (byEmail == null)
+        if (isExistsUser(tweetRequest))
             throw new UserNotFoundException(tweetRequest.getEmail());
 
         tweetRequest.setTimeCreated(new Timestamp(new Date().getTime()));
 
         return tweetRepository.createTweet(tweetRequest);
+    }
+
+    private boolean isExistsUser(TweetRequest tweetRequest) {
+        return userDao.findByEmail(tweetRequest.getEmail()) == null;
     }
 }
